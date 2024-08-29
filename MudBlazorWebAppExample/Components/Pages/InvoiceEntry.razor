@@ -4,38 +4,16 @@
 <h3>InvoiceEntry</h3>
 
 <MudContainer>
-    <EditForm Model="@model" OnValidSubmit="ValidateLogin">
-        <DataAnnotationsValidator />
-        <MudGrid xs="12">
-            <MudItem>
-                <MudCard Outlined="true">
-                    <MudCardContent>
-                        <MudTextField T="string" Label="Phone number :" 
-                        HelperText="Enter your phone" @bind-Value="@model.PhoneNumber" For="@(() => model.PhoneNumber)"/>
-                        <MudTextField T="string" Label="Name :"
-                                      HelperText="Enter your name" @bind-Value="@model.Name" For="@(() => model.Name)" />
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Submit</MudButton>
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
-        </MudGrid>
-    </EditForm>
+    <MudForm @ref="form" @bind-IsValid="success">
+
+    </MudForm>
 </MudContainer>
 
 @code {
-    private EntryModel model = new();
 
-    public class EntryModel
-    {
-        [Required]
-        [Phone]
-        public string PhoneNumber { get; set; }
-
-        [Required(ErrorMessage ="Name is required")]
-        public string Name { get; set; }
-    }
+    private Order model = new();
+    bool success;
+    MudForm form;
 
     private void ValidateLogin(EditContext context)
     {
